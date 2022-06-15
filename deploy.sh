@@ -12,8 +12,8 @@ cp dist/index.html "public/$FRONTEND_FILE"
 mkdir public/css && cp -Rf dist/css/* public/css
 mkdir public/js && cp -Rf dist/js/* public/js
 
-# do a git clean
-git clean -f
+# do a git clean to remove any unneeded generated files
+# git clean -f
 
 # append / include code in welcome file
 # don't git commit the welcome file! 
