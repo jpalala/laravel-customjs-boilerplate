@@ -7,14 +7,14 @@ define('LARAVEL_START', microtime(true));
 
 
 $parsed_url = parse_url($_SERVER['REQUEST_URI']);
-$path = $parsed['path'];
-$paths = explode('/', ltrim($parse_url['path'], '/'));
-$first_path = substr($fpaths[0], 0, 3); // /api ba?
-$is_callback = substr($fpaths[0], 0, 8) == 'callback'; // /callback ba?
+$path = $parsed_url['path'];
+$paths = explode('/', ltrim($parsed_url['path'], '/'));
+$first_path = substr($paths[0], 0, 3); // /api ba?
+$is_callback = substr($paths[0], 0, 8) == 'callback'; // /callback ba?
 
 // only run laravel-related code if it is `/api` related or the front page (views/welcome.blade.php = first page)
 // otherwise if its not an api page or the front page, the matched route view should not be served
-if(first_path == 'api' || empty($first_path) || $is_callback) 
+if($first_path == 'api' || empty($first_path)) 
 {
 
   /*
@@ -65,6 +65,14 @@ if(first_path == 'api' || empty($first_path) || $is_callback)
   )->send();
 
   $kernel->terminate($request, $response);
-} else {
-  die('invalid route!');
+} elseif ($is_callback) {
+	print_r($_REQUEST);
+   //var_dump($_REQUEST['code']);
 }
+	else {
+		echo "Does not exist!";
+		exit;
+	}
+
+ // die('invalid route!');
+
