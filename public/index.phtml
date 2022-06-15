@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+<!-- this is just an example of outputting from php file! -->
+  <title><?php if(isset($website_title)) {
+    echo $website_title
+  } else { ?>Svelte Example<?php } ?>
+  </title>
+
+  <link rel='icon' type='image/png' href='/favicon.png'>
+  <link rel='stylesheet' href='/global.css'>
+  <!-- change build paths as needed: -->
+  <link rel='stylesheet' href='/app.css'>
+
+  <script defer src='/app.js'></script>
+</head>
+
+<body>
+</body>
+</html>
