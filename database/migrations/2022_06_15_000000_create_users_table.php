@@ -18,6 +18,7 @@ return new class extends Migration
             $table->bigInteger('github_id')->unique();
             $table->string('name');
             $table->string('email')->unique();
+            $table->rememberToken(); //so we store login for longer term
             $table->timestamps();
         });
     }

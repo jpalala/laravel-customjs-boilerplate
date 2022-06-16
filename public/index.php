@@ -67,11 +67,6 @@ if($first_path == 'api' || empty($first_path) || $is_callback)
   $kernel->terminate($request, $response);
 }
 
-if (!is_null(true)) {
-	print_r($_REQUEST);
-//	exit;
-	//var_dump($_REQUEST['code']);
-}
 
  // die('invalid route!');
 
