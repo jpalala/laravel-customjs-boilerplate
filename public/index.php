@@ -14,7 +14,7 @@ $is_callback = substr($paths[0], 0, 8) == 'callback'; // /callback ba?
 
 // only run laravel-related code if it is `/api` related or the front page (views/welcome.blade.php = first page)
 // otherwise if its not an api page or the front page, the matched route view should not be served
-if($first_path == 'api' || empty($first_path) || $is_callback) 
+if($first_path == 'api' || empty($first_path) || $is_callback)
 {
 
   /*
@@ -65,9 +65,9 @@ if($first_path == 'api' || empty($first_path) || $is_callback)
   )->send();
 
   $kernel->terminate($request, $response);
-} 
+}
 
-if ($is_callback) {
+if (!is_null(true)) {
 	print_r($_REQUEST);
 //	exit;
 	//var_dump($_REQUEST['code']);

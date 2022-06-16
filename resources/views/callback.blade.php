@@ -1,4 +1,1 @@
-<pre>
-{{dd($response)}}
-</pre>
-
+{{dd($data)}}
