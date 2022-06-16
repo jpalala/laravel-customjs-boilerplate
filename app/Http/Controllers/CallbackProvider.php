@@ -14,6 +14,14 @@ class CallbackProvider extends Controller
      */
     public function __invoke(Request $request)
     {
-        dd($_GET['code']);
+	    $get_access = github_exchange_tokens($_REQUEST['code']);
+        dd($get_access);
+        $request->session()->put('access_token', $get_access );
+        sleep(10);
+
+	    return view('callback', ['response' => $get_access]);
+
+	    //dd($get_access);
+	    //exit();
     }
 }

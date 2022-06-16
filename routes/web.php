@@ -15,8 +15,10 @@ use App\Http\Controllers\CallbackProvider;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $access_token = '';
+    $data = ['sessions' => session('access_token')];
+    return view('welcome', $data);
 });
 
 Route::get('/callback', CallbackProvider::class);
-   
+
