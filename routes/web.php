@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Http\Controllers\CallbackProvider;
+use App\Http\Controllers\RedirectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,16 +16,23 @@ use App\Http\Controllers\CallbackProvider;
 |
 */
 
-Route::get('/', function () {
-
-    if(!empty(session('data'))) {
-        return view('welcome_session', [
-            'sessions' => session('data')
-        ]);
-    } else {
-        return view('welcome');
-    }
+Route::get('/', function (Request $request) {
+    return view('welcome', ['title' => 'Laravel Svelte Vite']);
 });
-
 Route::get('/callback', CallbackProvider::class);
+//save whatever deetails we get to the database here and start a permanent
+Route::get('/authenticate/{code}', function ($code) {
+    //dd(session('code'));
+
+    $auth_token = github_exchange_tokens($code);
+    if(is_string($auth_token)) {
+        dd($auth_token);
+    }  else {
+        return view('welcome_session', [
+            'sessions' => 'whatever'
+        ]);
+    }
+
+});
+Route::get('/reset', RedirectController::class);
 

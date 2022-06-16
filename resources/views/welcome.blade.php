@@ -1,7 +1,4 @@
-@if (isset($sessions))
-   {{json_decode($sessions)}}
-@endif
 @php
- $website_title = "laravel-customjs-boilerplate";
+ $website_title = $title;
  include_once(base_path() . '/public/index.phtml');
 @endphp

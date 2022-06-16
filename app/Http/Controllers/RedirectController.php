@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class CallbackProvider extends Controller
+class RedirectController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -14,10 +14,9 @@ class CallbackProvider extends Controller
      */
     public function __invoke(Request $request)
     {
-        $code = $request->input('code');
-        session(['code' => $request->input('code')]);
-        redirect('/authenticate/'.$code);
-        //return view('callback', ['github_code' => $data]);
-
+        if($request->input('clear')) {
+            $request->session()->pull('code');
+            return redirect('/');
+        }
     }
 }

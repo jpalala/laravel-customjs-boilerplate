@@ -1,1 +1,1 @@
-{{dd($data)}}
+{{$github_code['code']}}
