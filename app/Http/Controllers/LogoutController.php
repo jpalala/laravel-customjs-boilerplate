@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class RedirectController extends Controller
+class LogoutController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -14,9 +14,7 @@ class RedirectController extends Controller
      */
     public function __invoke(Request $request)
     {
-        if($request->input('clear')) {
-            $request->session()->pull('code');
-            return redirect('/');
-        }
+         $request->session()->pull('user');
+         return redirect('/');
     }
 }
