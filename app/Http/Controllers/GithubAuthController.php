@@ -7,12 +7,22 @@ use Laravel\Socialite\Facades\Socialite;
 
 class GithubAuthController extends Controller
 {
+  /**
+   * Redirect the user to the GitHub authentication page.
+   *
+   * @return \Illuminate\Http\Response
+   */
   public function redirect(Request $request) 
   {
     return Socialite::driver('github')->redirect();
   }
 
-  public function callback(Request $request) {
+  /**
+   * Obtain the user information from GitHub.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function handleCallback(Request $request) {
     $githubUser = Socialite::driver('github')->user();
     $uuid = Str::uuid()->toString();
 
