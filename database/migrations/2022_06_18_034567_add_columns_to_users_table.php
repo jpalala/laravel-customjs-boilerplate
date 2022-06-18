@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::table('users', function( $table ) {
             $table->string('github_id')->nullable();
+            $table->string('preferred_login',10)->default('password');// 'password' or 'github'
+            $table->string('avatar')->nullable();
         });
     }
 
@@ -26,7 +28,9 @@ return new class extends Migration
     public function down()
     {
         Schema::table('users', function($table) {
-            $table->dropColumn('github_id');
+          $table->dropColumn('github_id');
+          $table->dropColumn('prefered_login');
+          $table->dropColumn('avatar');
         });
     }
 };

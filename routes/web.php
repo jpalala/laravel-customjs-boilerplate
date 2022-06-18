@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-use App\Http\Controllers\CallbackProvider;
-use App\Http\Controllers\RedirectController;
+use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\GithubAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +19,7 @@ use App\Http\Controllers\RedirectController;
 Route::get('/', function (Request $request) {
     return view('welcome', ['title' => 'Laravel Svelte Vite']);
 });
-
+Route::get('/auth/github',[GithubAuthController::class, 'redirect']);
+Route::get('/auth/github/callback', [GithubAuthController::class, 'handleCallback']);
 Route::get('/logout', LogoutController::class); //delete user session here
 
