@@ -18,11 +18,27 @@
 
 6. Once redirected to  the authenticated route, load frontend code in it and you can add a custom <script> </script> to check for cookies etc..
 
+
+
 ### setting up sanctum
 
 1. `composer require laravel/sanctum`
 2. `php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"` then `php artisan migrate`
 3. Follow [instructions](https://laravel.com/docs/9.x/sanctum) to update the `app\Http\Kernel.php` 
+
+## dev notes
+
+When new routes are created and not showing:
+
+```
+php artisan route:cache
+```
+
+When views aren't updating:
+
+```
+php artisan view:clear 
+```
 
 
 ## TODO
