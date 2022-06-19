@@ -27,8 +27,8 @@ class GithubAuthController extends Controller
     $uuid = Str::uuid()->toString();
 
     $user = new User();
-    $password = bcrypt($uuid); //if github login, password should needs reset to be set
-     
+    $password = bcrypt($uuid); // password can be random because no existing user exist.
+
     $user = User::updateOrCreate([
         'github_id' => $githubUser->id,
     ], [
