@@ -19,6 +19,9 @@ use App\Http\Controllers\GithubAuthController;
 Route::get('/', function (Request $request) {
     return view('welcome', ['title' => 'Laravel Svelte Vite']);
 });
+Route::post('login', [ 'as' => 'login', 'uses' => 'LoginController@doLogin']);
+
+
 Route::get('/auth/github',[GithubAuthController::class, 'redirect']);
 Route::get('/auth/github/callback', [GithubAuthController::class, 'handleCallback']);
 Route::get('/dashboard', function () {
