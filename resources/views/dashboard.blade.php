@@ -20,10 +20,10 @@
             }
         </style>
        <script> 
-var page = 'dashboard';
-       alert(document.cookie);
+         var page = 'dashboard';
+         console.log(document.cookie);
         </script>
-        <script type="module" crossorigin src="/assets/index.f0fac1ad.js"></script>
+        <script type="module" crossorigin src="/assets/index.09535909.js"></script>
         <link rel="stylesheet" href="/assets/index.2362315a.css">
     </head>
     <body class="antialiased">

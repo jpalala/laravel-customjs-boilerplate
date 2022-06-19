@@ -21,20 +21,14 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function (Request $request) {
     return view('welcome', ['title' => 'Laravel Svelte Vite']);
 });
+
 Route::post('login',[LoginController::class, 'doLogin'])->name('login');
 
-
 Route::get('/auth/github',[GithubAuthController::class, 'redirect']);
+
 Route::get('/auth/github/callback', [GithubAuthController::class, 'handleCallback']);
-Route::get('/dashboard', function () {
-  if(!auth()->user()) {
-   return "Not logged in yet?";
-  } else {
-    echo 'wegood!';
-    $user = auth()->user();
-    $data = json_encode($user); //turn object to json string
-    // return view('dashboard', ['userdata' => $data]);
-  }
-});
+
+Route::get('/dashboard', [DashboardController::class, 'home'])->name('dashboard');
+
 Route::get('/logout', LogoutController::class); //delete user session here
 

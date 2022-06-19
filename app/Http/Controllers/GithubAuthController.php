@@ -42,6 +42,21 @@ class GithubAuthController extends Controller
     ]);
 
     Auth::login($user);
-    return redirect('dashboard');
+    return $this->authenticated($request, $user);
+
+  }
+
+
+  /**
+     * Handle response after user authenticated
+     *
+     * @param Request $request
+     * @param Auth $user
+     *
+     * @return \Illuminate\Http\Response
+    */
+  protected function authenticated(Request $request, $user)
+  {
+      return redirect()->intended('dashboard');
   }
 }
