@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\GithubAuthController;
 
@@ -19,7 +20,7 @@ use App\Http\Controllers\GithubAuthController;
 Route::get('/', function (Request $request) {
     return view('welcome', ['title' => 'Laravel Svelte Vite']);
 });
-Route::post('login', [ 'as' => 'login', 'uses' => 'LoginController@doLogin']);
+Route::post('login',[LoginController::class, 'doLogin'])->name('login');
 
 
 Route::get('/auth/github',[GithubAuthController::class, 'redirect']);

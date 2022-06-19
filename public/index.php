@@ -58,16 +58,15 @@ if($first_path == 'api' || $first_path == 'aut' || $first_path === 'das' || empt
   */
 
   $app = require_once __DIR__.'/../bootstrap/app.php';
-
-  $kernel = $app->make(Kernel::class);
+ $kernel = $app->make(Kernel::class);
 
   $response = $kernel->handle(
       $request = Request::capture()
   )->send();
 
   $kernel->terminate($request, $response);
+
+} else {
+ die('An invalid route!');
 }
-
-
- // die('invalid route!');
-
+ 

@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Laravel\Socialite\Facades\Socialite;
 
 class GithubAuthController extends Controller
 {
-    /**
+  /**
    * Redirect the user to the GitHub authentication page.
    *
    * @return \Illuminate\Http\Response
