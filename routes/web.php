@@ -21,5 +21,8 @@ Route::get('/', function (Request $request) {
 });
 Route::get('/auth/github',[GithubAuthController::class, 'redirect']);
 Route::get('/auth/github/callback', [GithubAuthController::class, 'handleCallback']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
 Route::get('/logout', LogoutController::class); //delete user session here
 
