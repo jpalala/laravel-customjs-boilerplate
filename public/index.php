@@ -10,12 +10,11 @@ $parsed_url = parse_url($_SERVER['REQUEST_URI']);
 $path = $parsed_url['path'];
 $paths = explode('/', ltrim($parsed_url['path'], '/'));
 $first_path = substr($paths[0], 0, 3); 
-$is_callback = substr($paths[0], 0, 8) == 'callback'; // /callback ba?
 
 // only run laravel-related code if it is `/api` related or the front page (views/welcome.blade.php = first page)
 // otherwise if its not an api page or the front page, the matched route view should not be served
-//checks if api or auth or dashboard or frontepage or the callback 
-if($first_path == 'api' || $first_path == 'aut' || $first_path === 'das' || empty($first_path) || $is_callback)
+//checks if /api or /auth or /dashboard or  /user or the frontpage 
+if($first_path == 'api' || $first_path == 'aut' || $first_path === 'das' ||  $first_path === 'use' || empty($first_path))
 {
 
   /*
