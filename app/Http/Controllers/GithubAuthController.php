@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-
 use App\Models\User;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -15,7 +15,7 @@ class GithubAuthController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function redirect(Request $request) 
+  public function redirect(Request $request)
   {
     return Socialite::driver('github')->redirect();
   }
@@ -40,7 +40,7 @@ class GithubAuthController extends Controller
         'password' => $password,
         'preffered_login' => 'github',
     ]);
- 
+
     Auth::login($user);
     return redirect('dashboard');
   }
