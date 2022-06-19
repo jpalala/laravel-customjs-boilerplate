@@ -31,7 +31,7 @@ class GithubAuthController extends Controller
 
     $user = new User();
     $password = bcrypt($uuid); // password can be random because no existing user exist.
-
+    // TODO: verify email..
     $user = User::updateOrCreate([
         'github_id' => $githubUser->id,
     ], [
@@ -42,14 +42,23 @@ class GithubAuthController extends Controller
     ]);
 
     Auth::login($user);
+
     return $this->authenticated($request, $user);
 
+  }
+
+  /**
+     * create auth token for user
+     */
+  protected function create_auth_cookie($user)
+  {
+    $token = $user->createToken('auth_token')->plainTextToken;
   }
 
 
   /**
      * Handle response after user authenticated
-     *
+     * Generate a session and store token
      * @param Request $request
      * @param Auth $user
      *
@@ -57,6 +66,16 @@ class GithubAuthController extends Controller
     */
   protected function authenticated(Request $request, $user)
   {
-      return redirect()->intended('dashboard');
+    $this->create_auth_cookie($user);
+    return redirect()->intended('dashboard');
+  } 
+
+  // example query from db (only for authenticated)
+  public function get_github_id(Request $request)
+  {
+    $request->input('id'); 
+    UserbearerToken();
+
   }
+
 }
