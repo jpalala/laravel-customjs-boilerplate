@@ -18,4 +18,14 @@
 
 6. Once redirected to  the authenticated route, load frontend code in it and you can add a custom <script> </script> to check for cookies etc..
 
-7. TODO: figure out how sanctum checks csrf to be able to call our laravel API's
+### setting up sanctum
+
+1. `composer require laravel/sanctum`
+2. `php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"` then `php artisan migrate`
+3. Follow [instructions](https://laravel.com/docs/9.x/sanctum) to update the `app\Http\Kernel.php` 
+
+
+## TODO
+
+- [] setup sanctum
+- [] setup tasks model and be able to get tasks once authenticated
