@@ -23,7 +23,7 @@ Route::get('/', function (Request $request) {
     return view('welcome', ['title' => 'Laravel Svelte Vite']);
 });
 
-Route::post('login',[LoginController::class, 'doLogin'])->name('login');
+Route::post('login',[LoginController::class, 'authenticate'])->name('login');
 
 Route::get('/auth/github',[GithubAuthController::class, 'redirect']);
 
@@ -32,17 +32,13 @@ Route::get('/auth/github/callback', [GithubAuthController::class, 'handleCallbac
 Route::get('dashboard',
     function () {
         $user = Auth::user();
-
-        if(empty($_COOKIE['auth_token']))
-        {
-            return 'User auth token missing!';
+        if(!$user || empty($_COOKIE['XSRF-TOKEN'])) {
+            redirect('login');
         }
 
-        return view('dashboard', ['authToken' => $_COOKIE['auth_token']]);
+        return view('dashboard', ['authToken' => $_COOKIE['XSRF-TOKEN']]);
     }
 )->middleware('auth')->name('dashboard');
-
-Route::get('/github_id', [UserController::class, 'findGithubIdForUser'])->middleware('auth:sanctum');
 
 Route::get('/logout', LogoutController::class); //delete user session here
 
@@ -51,4 +47,9 @@ Route::post('/tokens/create', function (Request $request) {
     $token = $request->user()->createToken($request->token_name);
 
     return ['token' => $token->plainTextToken];
+});
+
+// for testing
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
 });

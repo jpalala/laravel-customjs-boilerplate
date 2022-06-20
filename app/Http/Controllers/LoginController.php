@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
 class LoginController extends Controller
 {
      use AuthenticatesUsers;
@@ -16,8 +17,8 @@ class LoginController extends Controller
      *
      * @var string
      */
-     protected $redirectTo = RouteServiceProvider::HOME;   
-     
+     protected $redirectTo = RouteServiceProvider::HOME;
+
      /**
      * Create a new controller instance.
      *
@@ -27,10 +28,21 @@ class LoginController extends Controller
       {
           $this->middleware('guest', ['except' => 'logout']);
       }
-     
-      public function doLogin(Request $request) {
-          if (Auth::attempt(['email' => $email, 'password' => $password])  {
-               return redirect()->intended('dashboard');
-          }
+
+      public function authenticate(Request $request) {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials))  {
+            $request->session()->regenerate();
+
+            return redirect()->intended('dashboard');
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
       }
 }

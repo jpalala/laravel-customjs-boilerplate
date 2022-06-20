@@ -1,9 +1,14 @@
+@php
+    $title = "Dashboard";
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Svelte + Laravel:{{ $authToken ?? '' }}
+        <meta name="csrf-token" content="{{ $authToken ?? csrf_token() }}">
+
+        <title>Svelte + Laravel:{{ $title ?? '' }}
         </title>
         </title>
         <style>
