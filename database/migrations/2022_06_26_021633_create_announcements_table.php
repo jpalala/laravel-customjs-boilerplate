@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('user_id')->unsigned();
             $table->text('title')->nullable();
             $table->text('announcement')->nullable(false);
-            $table->boolean('is_pinned')->default(true);
-            $table->boolean('is_draft')->default(false);
+            $table->boolean('is_pinned')->default(false);
+            $table->boolean('is_published')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });

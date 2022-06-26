@@ -29,7 +29,7 @@ return new class extends Migration
     {
         Schema::table('users', function($table) {
           $table->dropColumn('github_id');
-          $table->dropColumn('prefered_login');
+          $table->dropColumn('preferred_login');
           $table->dropColumn('avatar');
         });
     }

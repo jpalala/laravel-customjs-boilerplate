@@ -15,13 +15,12 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('user_id')->unsigned()->nullable();
             $table->string('title');
             $table->text('description');
             $table->text('body');
             $table->text('tldr')->nullable(); //summary at end
-
             $table->timestamp('published_at')->nullable();
-            $table->bigInteger('publisher_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }
