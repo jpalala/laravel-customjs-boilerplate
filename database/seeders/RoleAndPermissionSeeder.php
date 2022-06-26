@@ -16,24 +16,32 @@ class RoleAndPermissionSeeder extends Seeder
      */
     public function run()
     {
-        //admin only
+        // NOTE: admin only
         Permission::create(['name' => 'create-users']);
+        Permission::create(['name' => 'edit-users']);
+        Permission::create(['name' => 'delete-users']); //soft
 
-        //admin only
+
+        // NOTE: admin only
         Permission::create(['name' => 'create-announcements']);
         Permission::create(['name' => 'edit-announcements']);
         Permission::create(['name' => 'delete-announcements']);
 
-        //anyone authenticated
+        // NOTE: anyone who wants to be a writer
         Permission::create(['name' => 'create-articles']);
         Permission::create(['name' => 'edit-articles']);
         Permission::create(['name' => 'delete-articles']);
-        Permission::create(['name' => 'edit-users']);
-        Permission::create(['name' => 'delete-users']); //soft
+
+        // NOTE: allow this for all users
+        Permission::create(['name' => 'edit-profile']); //allow only to edit their OWN profile
+        Permission::create(['name' => 'change-password']);
 
         $adminRole = Role::create(['name' => 'Admin']);
         $writerRole = Role::create(['name' => 'Writer']);
         $announcerRole = Role::create(['name' => 'Announcer']);
 
+        $adminRole->givePermissionTo(Permission::all()); //allow all for admin
+        $writerRole->givePermissionTo(['edit-profile','change-password','edit-articles','delete-articles','create-articles']); //allow for writers
+        $announcerRole->givePermissionTo(['edit-profile', 'change-password','create-announcements','edit-announcements','delete-announcements']);
     }
 }
