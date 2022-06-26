@@ -30,7 +30,7 @@
 <main>
   <img src={logo} alt="Svelte Logo" />
   <h1>Lets Login!</h1>
-
+  <a href="/login">Basic Login</a>
   <p>
   Authorized: {authorized}
   </p>

@@ -23,6 +23,7 @@ Route::get('/', function (Request $request) {
     return view('welcome', ['title' => 'Laravel Svelte Vite']);
 });
 
+Route::get('login',[LoginController::class, 'login'])->name('login-form');
 Route::post('login',[LoginController::class, 'authenticate'])->name('login');
 
 Route::get('/auth/github',[GithubAuthController::class, 'redirect']);
