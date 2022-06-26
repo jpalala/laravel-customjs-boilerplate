@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+//use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
@@ -24,8 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'preferred_login',
-        'avatar'
-        
+        'avatar',
     ];
 
     /**
@@ -33,10 +32,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
 
     /**
      * The attributes that should be cast.
@@ -47,7 +43,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getGithubIdAttribute($value) {
-       return (int) $value;
+    public function hasRole($role)
+    {
+        if (
+            $this->roles()
+                ->where('name', $role)
+                ->first()
+        ) {
+            return true;
+        }
+        return false;
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role')->withTimestamps();
+    }
+
+    public function getGithubIdAttribute($value)
+    {
+        return (int) $value;
     }
 }
