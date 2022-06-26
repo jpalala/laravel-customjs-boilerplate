@@ -53,3 +53,8 @@ Route::post('/tokens/create', function (Request $request) {
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['middleware' => ['auth/sanctum'], 'prefix' => 'pub',  'as' => 'pub-'], function () {
+    require __DIR__ . '/pub/articles.php';
+    require __DIR__ . '/pub/announcements.php';
+});
