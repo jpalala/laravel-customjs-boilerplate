@@ -10,7 +10,7 @@
 
 2. `app/providers/routeserviceprovider.php` -> define where default to redirect after login (ie dashboard)
 
-3. add other fillable items in `user.php` model
+3. add other fillable items in `user.php` model which will be automatically set once user is logged in (ie email and github_id etc)
 
 4. Make `GithubAuthController.php` and add the routes to it in `routes/web.php`
 
@@ -25,6 +25,31 @@
 1. `composer require laravel/sanctum`
 2. `php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"` then `php artisan migrate`
 3. Follow [instructions](https://laravel.com/docs/9.x/sanctum) to update the `app\Http\Kernel.php` 
+    ```
+    'api' => [
+        \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+    ```  
+4. Make api call from your javascript:
+
+//calling this route will set laravel's cookie then you can start making requests...
+```js
+axios.get(baseUrl + '/sanctum/csrf-cookie', ).then(() => {
+  //make a request to get /github_id from the database
+  axios.post(baseUrl + '/api/github_id').then(); //etc...
+});
+
+//or just check for the XSRF-TOKEN cookie of laravel   
+if (cookie.includes("XSRF-TOKEN")) {
+  axios.post(baseUrl + '/api/github_id', {
+    email: "joe@mentorsdojo.com",
+  }).then((res) => {
+    console.log(res);
+    authorized = true;
+  });
+} else {
+  console.error('No XSRF Token!');
+}
+```
 
 ## dev notes
 
@@ -53,5 +78,5 @@ Here is an alternative:
 
 ## TODO
 
-- [] setup sanctum
-- [] setup tasks model and be able to get tasks once authenticated
+- [x] setup sanctum
+- [x] be able to load a route that is protected by sanctum 
