@@ -23,9 +23,6 @@ Route::get('/', function (Request $request) {
     return view('welcome', ['title' => 'Laravel Svelte Vite']);
 });
 
-Route::get('login',[LoginController::class, 'login'])->name('login-form');
-Route::post('login',[LoginController::class, 'authenticate'])->name('login');
-
 Route::get('/auth/github',[GithubAuthController::class, 'redirect']);
 
 Route::get('/auth/github/callback', [GithubAuthController::class, 'handleCallback']);
@@ -59,3 +56,8 @@ Route::group(['middleware' => ['auth/sanctum'], 'prefix' => 'pub',  'as' => 'pub
     require __DIR__ . '/pub/articles.php';
     require __DIR__ . '/pub/announcements.php';
 });
+
+Route::get('login',[LoginController::class, 'login'])->name('login-form');
+Route::post('login',[LoginController::class, 'authenticate'])->name('login');
+
+

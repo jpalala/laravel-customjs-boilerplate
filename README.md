@@ -40,6 +40,16 @@ When views aren't updating:
 php artisan view:clear 
 ```
 
+## Loading Svelte scripts into your template 
+
+Apparently, SvelteJS's target element needs to be loaded so I put the call tto the asset stack inside the `<body>` element.
+
+Here is an alternative:
+```
+   document.addEventListener('DOMContentLoaded', () => { 
+   // do something to load whatever is in app.js
+  });
+```
 
 ## TODO
 
